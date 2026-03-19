@@ -91,6 +91,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 // Update firebase display name
                 await firebaseUpdateProfile(firebaseUser, { displayName: name });
 
+                // Force token sync before trying to write to Firestore to prevent permission race conditions
+                await firebaseUser.getIdToken(true);
+
                 // Create user doc in Firestore
                 const newUser: User = {
                     id: firebaseUser.uid,
