@@ -105,7 +105,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 return { success: true };
             } catch (error: any) {
                 console.error("Signup error:", error);
-                let message = "Signup failed. Please try again.";
+                let message = "Signup failed: " + (error.message || "Please try again.");
                 if (error.code === "auth/email-already-in-use") {
                     message = "An account with this email already exists.";
                 }
